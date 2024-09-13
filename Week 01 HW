@@ -1,0 +1,1658 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "aaad910f",
+   "metadata": {},
+   "source": [
+    "# STA130 Week 01 Homework \n",
+    "\n",
+    "Please see the course [wiki-textbook](https://github.com/pointOfive/stat130chat130/wiki) for the list of topics covered in this homework assignment, and a list of topics that might appear during ChatBot conversations which are \"out of scope\" for the purposes of this homework assignment (and hence can be safely ignored if encountered)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5aede3d7",
+   "metadata": {},
+   "source": [
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Introduction</u></summary>\n",
+    "\n",
+    "### Introduction\n",
+    "    \n",
+    "A reasonable characterization of STA130 Homework is that it simply defines a weekly reading comprehension assignment. \n",
+    "Indeed, STA130 Homework essentially boils down to completing various understanding confirmation exercises oriented around coding and writing tasks.\n",
+    "However, rather than reading a textbook, STA130 Homework is based on ChatBots so students can interactively follow up to clarify questions or confusion that they may still have regarding learning objective assignments.\n",
+    "\n",
+    "> Communication is a fundamental skill underlying statistics and data science, so STA130 Homework based on ChatBots helps practice effective two-way communication as part of a \"realistic\" dialogue activity supporting underlying conceptual understanding building. \n",
+    "\n",
+    "It will likely become increasingly tempting to rely on ChatBots to \"do the work for you\". But when you find yourself frustrated with a ChatBots inability to give you the results you're looking for, this is a \"hint\" that you've become overreliant on the ChatBots. Your objective should not be to have ChatBots \"do the work for you\", but to use ChatBots to help you build your understanding so you can efficiently leverage ChatBots (and other resources) to help you work more efficiently.<br><br>\n",
+    "\n",
+    "</details>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Instructions</u></summary>\n",
+    "\n",
+    "### Instructions\n",
+    "    \n",
+    "1. Code and write all your answers (for both the \"Prelecture\" and \"Postlecture\" HW) in a python notebook (in code and markdown cells) \n",
+    "    \n",
+    "> It is *suggested but not mandatory* that you complete the \"Prelecture\" HW prior to the Monday LEC since (a) all HW is due at the same time; but, (b) completing some of the HW early will mean better readiness for LEC and less of a \"procrastentation cruch\" towards the end of the week...\n",
+    "    \n",
+    "2. Paste summaries of your ChatBot sessions (including link(s) to chat log histories if you're using ChatGPT) within your notebook\n",
+    "    \n",
+    "> Create summaries of your ChatBot sessions by using concluding prompts such as \"Please provide a summary of our exchanges here so I can submit them as a record of our interactions as part of a homework assignment\" or, \"Please provide me with the final working verson of the code that we created together\"\n",
+    "    \n",
+    "3. Save your python jupyter notebook in your own account and \"repo\" on [github.com](github.com) and submit a link to that notebook though Quercus for assignment marking<br><br>\n",
+    "\n",
+    "</details>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Prompt Engineering?</u></summary>\n",
+    "\n",
+    "### Prompt Engineering?    \n",
+    "    \n",
+    "The questions (as copy-pasted prompts) are designed to initialize appropriate ChatBot conversations which can be explored in the manner of an interactive and dynamic textbook; but, it is nonetheless **strongly recommendated** that your rephrase the questions in a way that you find natural to ensure a clear understanding of the question. Given sensible prompts the represent a question well, the two primary challenges observed to arise from ChatBots are \n",
+    "\n",
+    "1. conversations going beyond the intended scope of the material addressed by the question; and, \n",
+    "2. unrecoverable confusion as a result of sequential layers logial inquiry that cannot be resolved. \n",
+    "\n",
+    "In the case of the former (1), adding constraints specifying the limits of considerations of interest tends to be helpful; whereas, the latter (2) is often the result of initial prompting that leads to poor developments in navigating the material, which are likely just best resolve by a \"hard reset\" with a new initial approach to prompting.  Indeed, this is exactly the behavior [hardcoded into copilot](https://answers.microsoft.com/en-us/bing/forum/all/is-this-even-normal/0b6dcab3-7d6c-4373-8efe-d74158af3c00)...\n",
+    "\n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "77293b06",
+   "metadata": {},
+   "source": [
+    "\n",
+    "### Marking Rubric (which may award partial credit) \n",
+    "\n",
+    "- [0.1 points]: All relevant ChatBot summaries [including link(s) to chat log histories if you're using ChatGPT] are reported within the notebook\n",
+    "- [0.2 points]: Reasonable well-written general definitions for Question \"2.2\"\n",
+    "- [0.3 points]: Demonstrated understanding regarding Question \"4\"\n",
+    "<!-- - [0.2 points]: A sensible justification for the choice in Question \"7.4\" -->\n",
+    "- [0.4 points]: Requested assessment of ChatBot versus google performance in Question \"8.3\"\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2f7d8d5a",
+   "metadata": {},
+   "source": [
+    "## \"Pre-lecture\" HW [*completion prior to next LEC is suggested but not mandatory*]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eff4111d",
+   "metadata": {},
+   "source": [
+    "#### 1. Pick one of the datasets from the ChatBot session(s) of the **TUT demo** (or from your own ChatBot session if you wish) and use the code produced through the ChatBot interactions to import the data and confirm that the dataset has missing values<br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> If your TA has not shared a relevant ChatBot session from their **TUT demo** through a piazza post and a Quercus announcement, the **TUT notebook** has links to example ChatBot sessions that you can use; or, ...\n",
+    "> \n",
+    "> ```python\n",
+    "> # feel free to just use the following if you prefer...\n",
+    "> import pandas as pd\n",
+    "> url = \"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv\"\n",
+    "> df = pd.read_csv(url)\n",
+    "> df.isna().sum()\n",
+    "> ```\n",
+    "    \n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "d0b8908f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "row_n           0\n",
+       "id              1\n",
+       "name            0\n",
+       "gender          0\n",
+       "species         0\n",
+       "birthday        0\n",
+       "personality     0\n",
+       "song           11\n",
+       "phrase          0\n",
+       "full_id         0\n",
+       "url             0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "url = \"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "df.isna().sum()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bebea424",
+   "metadata": {},
+   "source": [
+    "#### 2. Start a new ChatBot session with an initial prompt introducing the dataset you're using and request help to determine how many columns and rows of data a `pandas` DataFrame has, and then\n",
+    "\n",
+    "1. use code provided in your ChatBot session to print out the number of rows and columns of the dataset; and,  \n",
+    "2. write your own general definitions of the meaning of \"observations\" and \"variables\" based on asking the ChatBot to explain these terms in the context of your dataset<br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> A good initial prompt to start would be be something like\n",
+    "> - \"I've downloaded a dataset about characters from animal crossings (from https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv), and I'd like to know what columns of information I have and how much data I have\"\n",
+    "> \n",
+    "> You can further reduce the scope of your inquiry with if needed with something like\n",
+    "> - \"I've already downloaded the data and want to understand the size (or dimensions) of the dataset to start with\"\n",
+    "> \n",
+    "> *Some ChatBots can upload your data and do this for you; but, extended usage of this feature [likely requires a paid subscription](https://github.com/pointOfive/stat130chat130/blob/main/CHATLOG/wk1/GPT/SLS/00006_gpt3p5_LoadDataPaywall.md); and, anyway, you need to run the code yourself rather than having a ChatBot do that for you; and, for STA130 we don't want a ChatBot to just do the analysis for us; rather, we instead want ChatBots to help us understand the steps we need to take to analyze the data; so,* **you DO NOT need to purchase an upgraded version of any ChatBots**\n",
+    "> - Free-tier level ChatBots like [GPT4o-mini](https://chat.openai.com/) or [Copilot](https://copilot.microsoft.com/) (which is partially based on [ChatGPT4.0](https://chat.openai.com/), and which you have access to through your UofT account) are sufficiently sophisticated and perfectly appropriate for the STA130 course\n",
+    "    \n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "2d557890",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Number of rows: 391\n",
+      "Number of columns: 11\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the dataset\n",
+    "url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv'\n",
+    "data = pd.read_csv(url)\n",
+    "\n",
+    "# Get the number of rows and columns\n",
+    "rows, columns = data.shape\n",
+    "\n",
+    "print(f'Number of rows: {rows}')\n",
+    "print(f'Number of columns: {columns}')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "218522d6",
+   "metadata": {},
+   "source": [
+    "Variables are different types of data that are recorded in the dataset. They represent different features or characteristics about each observation.\n",
+    "Observations are individual data records in the dataset. Each observation represents a unit of analysis, which contains all values of variables.\n",
+    "In this context, each row represents a villager npc character in the game animal crossing  this includes row_n for numerical ID, id for character id identifier, name for name of the villager, gender for gender of the villager, species for the species of the villagers and so on. And each column represents characteristics and description of villager npc."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2a56c467",
+   "metadata": {},
+   "source": [
+    "#### 3. Ask the ChatBot how you can provide simple summaries of the columns in the dataset and use the suggested code to provide these summaries for your dataset<br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> Use your ChatBot session to help you create working examples of using  `df.describe()` and `df['column'].value_counts()` for your dataset (although note that the `.value_counts()` method is not really meant to be used for numeric variables, so if you dataset has only numeric variables, `.value_counts()` might not be particularly informative...)\n",
+    ">\n",
+    "> #### ChatBot Response Scope \n",
+    ">     \n",
+    "> If prompts are not sufficiently focused you will likely get overly broad responses from the ChatBot, but you can always respond with subsequent refinement requests to appropriately limit the scope of the ChatBot responses to focus on addressing your actual content targets; so, \n",
+    "> - an initially very general inquiry like, \"I need help analyzing my data\" will likely result in a ChatBot response suggesting a wide variety of approaches and techniques for summarizing your dataset; but, re-prompting the ChatBot with something like, \"What's the simplest form of summarization of this dataset that I could do and how do I do it in Python?\" or suggesting guidance using the specific summarization methods requested above will helpfully re-orient the ChatBot to your specific interests and needs\n",
+    "> \n",
+    "> #### Jupyter Notebook Hints\n",
+    "> \n",
+    "> Jupyter notebook printouts usaully don't show all of the data (when there's too much to show, like if `df.describe()` includes results for many columns), but the printouts just show enough of the data to give an idea of what the results are which is all we're looking for at the moment\n",
+    "> \n",
+    "> - Consider dividing the code that ChatBot provides you into different jupyter notebook cells so that each cell concludes with a key printed result; the last line of code in a jupyter notebook cell will automatically print out in a formatted manner, so replacing something like `print(df.head())` with `df.head()` as the last line of a cell provides a sensible way to organize your code\n",
+    "> - The printout suggestions above are demonstrated in `STA130F24_CourseProject.ipynb` if looking at an example would be helpful to understand what they're getting at...\n",
+    "    \n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "e4e4906e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Shape of the dataset: (391, 11)\n",
+      "\n",
+      "Summary of the dataset:\n",
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 391 entries, 0 to 390\n",
+      "Data columns (total 11 columns):\n",
+      " #   Column       Non-Null Count  Dtype \n",
+      "---  ------       --------------  ----- \n",
+      " 0   row_n        391 non-null    int64 \n",
+      " 1   id           390 non-null    object\n",
+      " 2   name         391 non-null    object\n",
+      " 3   gender       391 non-null    object\n",
+      " 4   species      391 non-null    object\n",
+      " 5   birthday     391 non-null    object\n",
+      " 6   personality  391 non-null    object\n",
+      " 7   song         380 non-null    object\n",
+      " 8   phrase       391 non-null    object\n",
+      " 9   full_id      391 non-null    object\n",
+      " 10  url          391 non-null    object\n",
+      "dtypes: int64(1), object(10)\n",
+      "memory usage: 33.7+ KB\n",
+      "None\n",
+      "\n",
+      "Summary statistics for numerical columns:\n",
+      "            row_n\n",
+      "count  391.000000\n",
+      "mean   239.902813\n",
+      "std    140.702672\n",
+      "min      2.000000\n",
+      "25%    117.500000\n",
+      "50%    240.000000\n",
+      "75%    363.500000\n",
+      "max    483.000000\n",
+      "\n",
+      "Missing values in each column:\n",
+      "row_n           0\n",
+      "id              1\n",
+      "name            0\n",
+      "gender          0\n",
+      "species         0\n",
+      "birthday        0\n",
+      "personality     0\n",
+      "song           11\n",
+      "phrase          0\n",
+      "full_id         0\n",
+      "url             0\n",
+      "dtype: int64\n",
+      "\n",
+      "Unique values in each column:\n",
+      "row_n: 391 unique values\n",
+      "id: 390 unique values\n",
+      "name: 391 unique values\n",
+      "gender: 2 unique values\n",
+      "species: 35 unique values\n",
+      "birthday: 361 unique values\n",
+      "personality: 8 unique values\n",
+      "song: 92 unique values\n",
+      "phrase: 388 unique values\n",
+      "full_id: 391 unique values\n",
+      "url: 391 unique values\n",
+      "\n",
+      "First few rows of the dataset:\n",
+      "   row_n       id     name  gender    species birthday personality  \\\n",
+      "0      2  admiral  Admiral    male       bird     1-27      cranky   \n",
+      "1      3  agent-s  Agent S  female   squirrel      7-2       peppy   \n",
+      "2      4    agnes    Agnes  female        pig     4-21        uchi   \n",
+      "3      6       al       Al    male    gorilla    10-18        lazy   \n",
+      "4      7  alfonso  Alfonso    male  alligator      6-9        lazy   \n",
+      "\n",
+      "          song    phrase           full_id  \\\n",
+      "0   Steep Hill   aye aye  villager-admiral   \n",
+      "1      DJ K.K.  sidekick  villager-agent-s   \n",
+      "2   K.K. House   snuffle    villager-agnes   \n",
+      "3   Steep Hill   Ayyeeee       villager-al   \n",
+      "4  Forest Life  it'sa me  villager-alfonso   \n",
+      "\n",
+      "                                                 url  \n",
+      "0  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "1  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "2  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "3  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "4  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "\n",
+      "Last few rows of the dataset:\n",
+      "     row_n        id      name  gender  species birthday personality  \\\n",
+      "386    475    winnie    Winnie  female    horse     1-31       peppy   \n",
+      "387    477  wolfgang  Wolfgang    male     wolf    11-25      cranky   \n",
+      "388    480      yuka      Yuka  female    koala     7-20      snooty   \n",
+      "389    481      zell      Zell    male     deer      6-7        smug   \n",
+      "390    483    zucker    Zucker    male  octopus      3-8        lazy   \n",
+      "\n",
+      "                song   phrase            full_id  \\\n",
+      "386         My Place   hay-OK    villager-winnie   \n",
+      "387        K.K. Song  snarrrl  villager-wolfgang   \n",
+      "388     Soulful K.K.  tsk tsk      villager-yuka   \n",
+      "389         K.K. D&B    pronk      villager-zell   \n",
+      "390  Spring Blossoms    bloop    villager-zucker   \n",
+      "\n",
+      "                                                   url  \n",
+      "386  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "387  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "388  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "389  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "390  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "\n",
+      "Value counts for categorical columns:\n",
+      "\n",
+      "id value counts:\n",
+      "id\n",
+      "admiral    1\n",
+      "mott       1\n",
+      "paula      1\n",
+      "patty      1\n",
+      "pate       1\n",
+      "          ..\n",
+      "eloise     1\n",
+      "elmer      1\n",
+      "ellie      1\n",
+      "elise      1\n",
+      "zucker     1\n",
+      "Name: count, Length: 390, dtype: int64\n",
+      "\n",
+      "name value counts:\n",
+      "name\n",
+      "Admiral    1\n",
+      "Muffy      1\n",
+      "Paula      1\n",
+      "Patty      1\n",
+      "Pate       1\n",
+      "          ..\n",
+      "Elvis      1\n",
+      "Eloise     1\n",
+      "Elmer      1\n",
+      "Ellie      1\n",
+      "Zucker     1\n",
+      "Name: count, Length: 391, dtype: int64\n",
+      "\n",
+      "gender value counts:\n",
+      "gender\n",
+      "male      204\n",
+      "female    187\n",
+      "Name: count, dtype: int64\n",
+      "\n",
+      "species value counts:\n",
+      "species\n",
+      "cat          23\n",
+      "rabbit       20\n",
+      "frog         18\n",
+      "squirrel     18\n",
+      "duck         17\n",
+      "dog          16\n",
+      "cub          16\n",
+      "pig          15\n",
+      "bear         15\n",
+      "mouse        15\n",
+      "horse        15\n",
+      "bird         13\n",
+      "penguin      13\n",
+      "sheep        13\n",
+      "elephant     11\n",
+      "wolf         11\n",
+      "ostrich      10\n",
+      "deer         10\n",
+      "eagle         9\n",
+      "gorilla       9\n",
+      "chicken       9\n",
+      "koala         9\n",
+      "goat          8\n",
+      "hamster       8\n",
+      "kangaroo      8\n",
+      "monkey        8\n",
+      "anteater      7\n",
+      "hippo         7\n",
+      "tiger         7\n",
+      "alligator     7\n",
+      "lion          7\n",
+      "bull          6\n",
+      "rhino         6\n",
+      "cow           4\n",
+      "octopus       3\n",
+      "Name: count, dtype: int64\n",
+      "\n",
+      "birthday value counts:\n",
+      "birthday\n",
+      "1-27     2\n",
+      "12-5     2\n",
+      "7-31     2\n",
+      "3-26     2\n",
+      "8-3      2\n",
+      "        ..\n",
+      "4-3      1\n",
+      "10-26    1\n",
+      "7-23     1\n",
+      "12-8     1\n",
+      "3-8      1\n",
+      "Name: count, Length: 361, dtype: int64\n",
+      "\n",
+      "personality value counts:\n",
+      "personality\n",
+      "lazy      60\n",
+      "normal    59\n",
+      "cranky    55\n",
+      "snooty    55\n",
+      "jock      55\n",
+      "peppy     49\n",
+      "smug      34\n",
+      "uchi      24\n",
+      "Name: count, dtype: int64\n",
+      "\n",
+      "song value counts:\n",
+      "song\n",
+      "K.K. Country     10\n",
+      "Forest Life       9\n",
+      "Imperial K.K.     7\n",
+      "K.K. Soul         7\n",
+      "K.K. Ragtime      7\n",
+      "                 ..\n",
+      "Aloha K.K.        2\n",
+      "Drivin'           1\n",
+      "Senor K.K.        1\n",
+      "K.K.  Bazaar      1\n",
+      "K.K. D&B          1\n",
+      "Name: count, Length: 92, dtype: int64\n",
+      "\n",
+      "phrase value counts:\n",
+      "phrase\n",
+      "wee one       2\n",
+      "quacko        2\n",
+      "bloop         2\n",
+      "aye aye       1\n",
+      "snoot         1\n",
+      "             ..\n",
+      "lambchop      1\n",
+      "yeah buddy    1\n",
+      "chow down     1\n",
+      "unh-hunh      1\n",
+      "pronk         1\n",
+      "Name: count, Length: 388, dtype: int64\n",
+      "\n",
+      "full_id value counts:\n",
+      "full_id\n",
+      "villager-admiral    1\n",
+      "villager-muffy      1\n",
+      "villager-paula      1\n",
+      "villager-patty      1\n",
+      "villager-pate       1\n",
+      "                   ..\n",
+      "villager-elvis      1\n",
+      "villager-eloise     1\n",
+      "villager-elmer      1\n",
+      "villager-ellie      1\n",
+      "villager-zucker     1\n",
+      "Name: count, Length: 391, dtype: int64\n",
+      "\n",
+      "url value counts:\n",
+      "url\n",
+      "https://villagerdb.com/images/villagers/thumb/admiral.98206ee.png    1\n",
+      "https://villagerdb.com/images/villagers/thumb/muffy.1497c92.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/paula.563ba81.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/patty.3e17f7f.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/pate.c60838c.png       1\n",
+      "                                                                    ..\n",
+      "https://villagerdb.com/images/villagers/thumb/elvis.57d4757.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/eloise.112208b.png     1\n",
+      "https://villagerdb.com/images/villagers/thumb/elmer.cc7df52.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/ellie.5a144a6.png      1\n",
+      "https://villagerdb.com/images/villagers/thumb/zucker.8dbb719.png     1\n",
+      "Name: count, Length: 391, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the dataset\n",
+    "url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv'\n",
+    "data = pd.read_csv(url)\n",
+    "\n",
+    "# Basic overview\n",
+    "print(\"Shape of the dataset:\", data.shape)\n",
+    "print(\"\\nSummary of the dataset:\")\n",
+    "print(data.info())\n",
+    "\n",
+    "# Summary statistics\n",
+    "print(\"\\nSummary statistics for numerical columns:\")\n",
+    "print(data.describe())\n",
+    "\n",
+    "# Missing values\n",
+    "print(\"\\nMissing values in each column:\")\n",
+    "print(data.isnull().sum())\n",
+    "\n",
+    "# Unique values\n",
+    "print(\"\\nUnique values in each column:\")\n",
+    "for column in data.columns:\n",
+    "    print(f\"{column}: {data[column].nunique()} unique values\")\n",
+    "\n",
+    "# Preview the dataset\n",
+    "print(\"\\nFirst few rows of the dataset:\")\n",
+    "print(data.head())\n",
+    "print(\"\\nLast few rows of the dataset:\")\n",
+    "print(data.tail())\n",
+    "\n",
+    "# Value counts for categorical columns\n",
+    "print(\"\\nValue counts for categorical columns:\")\n",
+    "for column in data.select_dtypes(include=['object']).columns:\n",
+    "    print(f\"\\n{column} value counts:\")\n",
+    "    print(data[column].value_counts())\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b15c909b",
+   "metadata": {},
+   "source": [
+    "#### 4. If the dataset you're using has (a) non-numeric variables and (b) missing values in numeric variables, explain (perhaps using help from a ChatBot if needed) the discrepancies between size of the dataset given by `df.shape` and what is reported by `df.describe()` with respect to (a) the number of columns it analyzes and (b) the values it reports in the \"count\" column<br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> If the dataset you're using does not have (a) non-numeric variables and (b) missing values in numeric variables (e.g., the `\"villagers.csv\"` example above has only a single numeric variable `row_n` which has no missing values), instead download and use the [https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv](https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv)\" data to answer this question  \n",
+    ">\n",
+    "> In (a) above, the \"columns it analyzes\" refers to the columns of the output of `df.describe()` which will only include \"numeric\" columns by default, but you can can see the names of all the columns in a dataset using `df.columns`; and, make sure `df.shape` is refering to the dataset you think it is... if you've loaded a different dataset it might not have been called `df`(!)\n",
+    ">\n",
+    "> **If you get any errors (for example related to column names), copy and paste them as a response to the ChatBot, and see if it can help you resove them by adding the suggested adjustments to your code and then reruning all your code to see if the changes have fixed the problem (and repeat this process as needed until the problems have been resolved).**\n",
+    "    \n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "e95264b1",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(3, 2)\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Sample DataFrame\n",
+    "data = pd.DataFrame({\n",
+    "    'A': [1, 2, 3],\n",
+    "    'B': [4, 5, 6]\n",
+    "})\n",
+    "\n",
+    "# Get the shape of the DataFrame\n",
+    "print(data.shape)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "675f7c6c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "         A    B\n",
+      "count  3.0  3.0\n",
+      "mean   2.0  5.0\n",
+      "std    1.0  1.0\n",
+      "min    1.0  4.0\n",
+      "25%    1.5  4.5\n",
+      "50%    2.0  5.0\n",
+      "75%    2.5  5.5\n",
+      "max    3.0  6.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Sample DataFrame\n",
+    "data = pd.DataFrame({\n",
+    "    'A': [1, 2, 3],\n",
+    "    'B': [4, 5, 6]\n",
+    "})\n",
+    "\n",
+    "# Get descriptive statistics\n",
+    "print(data.describe())\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f1a1ed44",
+   "metadata": {},
+   "source": [
+    "This output shows the count, mean, standard deviation, minimum, maximum, and quartiles (25%, 50%, 75%) for each numerical column in the DataFrame."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "88a61524",
+   "metadata": {},
+   "source": [
+    "df.shape tells you how many rows and columns are in your DataFrame. df.describe() provides statistical summaries for the numerical columns, which helps in understanding the data distribution and central tendency. It ingores missing values and count the descriptive statistics of non-missing value"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fa8cc949",
+   "metadata": {},
+   "source": [
+    "#### 5. Use your ChatBot session to help understand the difference between the following and then provide your own paraphrasing summarization of that difference\n",
+    "\n",
+    "- an \"attribute\", such as `df.shape` which does not end with `()`\n",
+    "- and a \"method\", such as `df.describe()` which does end with `()` \n",
+    "   \n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> The fact that a \"method\" such as `df.describe()` ends with `()` suggests that \"methods\" are essentially something that we would call a \"function\" in programming language terminology; but, without getting too technical or \"in the weeds\", it might also be worth considering that we could also contrast what the difference is between a \"function\" in a programming language versus a \"function\" in mathematics...  \n",
+    "    \n",
+    "</details><br><br>\n",
+    "\n",
+    "***Don't forget to ask for summaries of your ChatBot session(s) and paste these into your homework notebook (including link(s) to chat log histories if you're using ChatGPT)!***<br><br>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e2341279",
+   "metadata": {},
+   "source": [
+    "Parentheses are not necessary when using attributes, which are an object's properties. They offer details regarding the configuration or state of the object.\n",
+    "Parentheses are needed when calling a method, which is a function attached to an object. They carry out operations or computations and frequently provide the results."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5ea57fbf",
+   "metadata": {},
+   "source": [
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Continue now...?</u></summary>\n",
+    "\n",
+    "### Prelecture VS Postlecture HW\n",
+    "    \n",
+    "Feel free to work on the \"Postlecture\" HW below if you're making good progress and want to continue: in this case this is particularly reasonable as questions \"6\" and \"7\" below directly follow up and extend the \"Prelecture\" HW questions\n",
+    "\n",
+    "*The benefits of continue would are that (a) it might be fun to try to tackle the challenge of working through some problems without additional preparation or guidance; and (b) this is a very valable skill to be comfortable with; and (c) it will let you build experience interacting with ChatBots (and beginning to understand their strengths and limitations in this regard)... it's good to have sense of when using a ChatBot is the best way to figure something out, or if another approach (such as course provided resources or a plain old websearch for the right resourse) would be more effective*\n",
+    "    \n",
+    "</details>    \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6dbc0e0c",
+   "metadata": {},
+   "source": [
+    "## \"Post-lecture\" HW [*submission along with \"Pre-lecture\" HW is due prior to next TUT*]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b5b28bd0",
+   "metadata": {},
+   "source": [
+    "#### 6. The `df.describe()` method provides the 'count', 'mean', 'std', 'min', '25%', '50%', '75%', and 'max' summary statistics for each variable it analyzes. Give the definitions (perhaps using help from the ChatBot if needed) of each of these summary statistics<br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> The answers here actually make it obvious why these can only be calculated for numeric variables in a dataset, which should help explain the answer to \"4(a)\" and \"4(b)\" above\n",
+    ">   \n",
+    "> Also notice that when `df.describe()` is used missing values are not explicitly removed, but `df.describe()`  provides answers anyway. Is it clear what `df.describe()` does with the data in each columns it analyzes if there is missing data in the column in question? \n",
+    ">\n",
+    "> The next questions addresses removing rows or columns from a dataset in order to explicitly remove the presense of any missingness in the dataset (assuming we're not going to fill in any missing data values using any missing data imputation methods, which are beyond the scope of STA130); so, the behavior of `df.describe()` hints that explicitly removing missing may not always be necessary; but, the concern, though, is that not all methods may be able to handle missing data the way `df.describe()` does...\n",
+    "    \n",
+    "</details>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "84e57931",
+   "metadata": {},
+   "source": [
+    "Count is the number of non-missing (non-null) values in each column.\n",
+    "\n",
+    "Mean is the average of the values in each column.\n",
+    "\n",
+    "Std is standard deviation, which is a a measure of the amount of variation or dispersion of the values in each column.\n",
+    "\n",
+    "Min is the smallest value in each column\n",
+    "\n",
+    "25% is the value below which 25% of the data falls.\n",
+    "\n",
+    "50% is the median value of each column, where 50% of the data falls below this value and 50% falls above it.\n",
+    "\n",
+    "75% is the the value below which 75% of the data falls.\n",
+    "\n",
+    "Max is the largest value in each column."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2a6a98fb",
+   "metadata": {},
+   "source": [
+    "#### 7. Missing data can be considered \"across rows\" or \"down columns\".  Consider how `df.dropna()` or `del df['col']` should be applied to most efficiently use the available non-missing data in your dataset and briefly answer the following questions in your own words\n",
+    "\n",
+    "1. Provide an example of a \"use case\" in which using `df.dropna()` might be peferred over using `del df['col']`<br><br>\n",
+    "    \n",
+    "2. Provide an example of \"the opposite use case\" in which using `del df['col']` might be preferred over using `df.dropna()` <br><br>\n",
+    "    \n",
+    "3. Discuss why applying `del df['col']` before `df.dropna()` when both are used together could be important<br><br>\n",
+    "    \n",
+    "4. Remove all missing data from one of the datasets you're considering using some combination of `del df['col']` and/or `df.dropna()` and give a justification for your approach, including a \"before and after\" report of the results of your approach for your dataset.<br><br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> Start a new ChatBot session **[but remember to first ask your ChatBot for summaries of your current session and perhaps coding results (so you can supply these in the homework as requested)]**, since your last ChatBot session has likely gotten quite long and has covered a lot of material at this point \n",
+    "> - It can sometimes be helpful to reset ChatBot sessions to refocus them on the topics of inquiry without too much backlog history that might unintentionally bias things in certain directions and, of course, you can always re-introduce material from earlier conversations as it's relevant, such as for answering \"D\" based on reintroducing and updating code you made in a previous ChatBot session.  \n",
+    "> \n",
+    "> #### ChatBot Scope Guidance\n",
+    "> \n",
+    "> - This question is not interested in the general benefits of imputing missing data, or the general benefits of using `df.dropna()` and/or `del df['col']` to remove missing data, just how to most efficiently remove missing data if a user chooses to do so\n",
+    "> \n",
+    "> - More sophisticated analyses for \"filling in\" rather than removing missing data (as considered here) are possible (based on making assumptions about missing data and using specific imputation methods or models) but these are \"beyond the scope\" of this homework assignment so this topics can be safely ignored for now\n",
+    "> \n",
+    "> #### ChatBot Code Troubleshooting\n",
+    "> \n",
+    "> A key issue to be aware of when asking ChatBots for help with something is that they are not running and checking code for correctess, and they often intertwine written instructions with code instructions; so, BEFORE YOU RUN ANY CODE provided by a ChatBot, you should check the following\n",
+    "> \n",
+    "> 1. If this code changes an object or data, are you sure you want to run this code?\n",
+    "> 2. Can you easily \"undo\" the results of running code (e.g., from a copy `df_saved=df.copy()` or reloading the data) if running the code doesn't do what you want?\n",
+    "> 3. Is the state of the data what is expected by the code? Or have the objects been updated and changed so they're no longer what the code expects them to be? \n",
+    "> \n",
+    "> #### If you get any `Python` errors, copy and paste them into the ChatBot prompt and see if it can help you resove them; but, keep in mind the final point above becasue the ChatBot might not be aware of the state of your objects relative to the code it's producing...\n",
+    "\n",
+    "</details><br>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "53c426b2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Original DataFrame:\n",
+      "      Name   Age Favorite_Hobby\n",
+      "0    Alice  25.0        Fishing\n",
+      "1      Bob   NaN            NaN\n",
+      "2  Charlie  30.0      Gardening\n",
+      "3    David  45.0        Cooking\n",
+      "\n",
+      "DataFrame after dropping rows with missing 'Favorite_Hobby':\n",
+      "      Name   Age Favorite_Hobby\n",
+      "0    Alice  25.0        Fishing\n",
+      "2  Charlie  30.0      Gardening\n",
+      "3    David  45.0        Cooking\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "\n",
+    "# Create a sample DataFrame\n",
+    "data = pd.DataFrame({\n",
+    "    'Name': ['Alice', 'Bob', 'Charlie', 'David'],\n",
+    "    'Age': [25, np.nan, 30, 45],\n",
+    "    'Favorite_Hobby': ['Fishing', np.nan, 'Gardening', 'Cooking']\n",
+    "})\n",
+    "\n",
+    "print(\"Original DataFrame:\")\n",
+    "print(data)\n",
+    "\n",
+    "# Remove rows with missing values in the 'Favorite_Hobby' column\n",
+    "cleaned_data = data.dropna(subset=['Favorite_Hobby'])\n",
+    "\n",
+    "print(\"\\nDataFrame after dropping rows with missing 'Favorite_Hobby':\")\n",
+    "print(cleaned_data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "cb925500",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Original DataFrame:\n",
+      "      Name   Age Favorite_Hobby\n",
+      "0    Alice  25.0        Fishing\n",
+      "1      Bob   NaN            NaN\n",
+      "2  Charlie  30.0      Gardening\n",
+      "3    David  45.0        Cooking\n",
+      "\n",
+      "DataFrame after deleting the 'Favorite_Hobby' column:\n",
+      "      Name   Age\n",
+      "0    Alice  25.0\n",
+      "1      Bob   NaN\n",
+      "2  Charlie  30.0\n",
+      "3    David  45.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "\n",
+    "# Create a sample DataFrame\n",
+    "data = pd.DataFrame({\n",
+    "    'Name': ['Alice', 'Bob', 'Charlie', 'David'],\n",
+    "    'Age': [25, np.nan, 30, 45],\n",
+    "    'Favorite_Hobby': ['Fishing', np.nan, 'Gardening', 'Cooking']\n",
+    "})\n",
+    "\n",
+    "print(\"Original DataFrame:\")\n",
+    "print(data)\n",
+    "\n",
+    "# Remove the 'Favorite_Hobby' column as it's not needed for the analysis\n",
+    "del data['Favorite_Hobby']\n",
+    "\n",
+    "print(\"\\nDataFrame after deleting the 'Favorite_Hobby' column:\")\n",
+    "print(data)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ef85bc79",
+   "metadata": {},
+   "source": [
+    "There are three reasons for applying del df['col'] before df.dropna() when both are used together, which could be importnat. First, it can reduce the size of the data frame, making operations faster.\n",
+    "Second, avoid unnecessary computations on irrelevant columns.\n",
+    "Last, ensure that missing value handling (dropna()) focuses on the relevant data, preventing unintended data loss."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "43314730",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Initial DataFrame:\n",
+      "   row_n       id     name  gender    species birthday personality  \\\n",
+      "0      2  admiral  Admiral    male       bird     1-27      cranky   \n",
+      "1      3  agent-s  Agent S  female   squirrel      7-2       peppy   \n",
+      "2      4    agnes    Agnes  female        pig     4-21        uchi   \n",
+      "3      6       al       Al    male    gorilla    10-18        lazy   \n",
+      "4      7  alfonso  Alfonso    male  alligator      6-9        lazy   \n",
+      "\n",
+      "          song    phrase           full_id  \\\n",
+      "0   Steep Hill   aye aye  villager-admiral   \n",
+      "1      DJ K.K.  sidekick  villager-agent-s   \n",
+      "2   K.K. House   snuffle    villager-agnes   \n",
+      "3   Steep Hill   Ayyeeee       villager-al   \n",
+      "4  Forest Life  it'sa me  villager-alfonso   \n",
+      "\n",
+      "                                                 url  \n",
+      "0  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "1  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "2  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "3  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "4  https://villagerdb.com/images/villagers/thumb/...  \n",
+      "\n",
+      "Missing values in each column:\n",
+      "row_n           0\n",
+      "id              1\n",
+      "name            0\n",
+      "gender          0\n",
+      "species         0\n",
+      "birthday        0\n",
+      "personality     0\n",
+      "song           11\n",
+      "phrase          0\n",
+      "full_id         0\n",
+      "url             0\n",
+      "dtype: int64\n"
+     ]
+    },
+    {
+     "ename": "KeyError",
+     "evalue": "'height'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/core/indexes/base.py:3790\u001b[0m, in \u001b[0;36mIndex.get_loc\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m   3789\u001b[0m \u001b[38;5;28;01mtry\u001b[39;00m:\n\u001b[0;32m-> 3790\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43m_engine\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget_loc\u001b[49m\u001b[43m(\u001b[49m\u001b[43mcasted_key\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m   3791\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mKeyError\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m err:\n",
+      "File \u001b[0;32mindex.pyx:152\u001b[0m, in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+      "File \u001b[0;32mindex.pyx:181\u001b[0m, in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+      "File \u001b[0;32mpandas/_libs/hashtable_class_helper.pxi:7080\u001b[0m, in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+      "File \u001b[0;32mpandas/_libs/hashtable_class_helper.pxi:7088\u001b[0m, in \u001b[0;36mpandas._libs.hashtable.PyObjectHashTable.get_item\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;31mKeyError\u001b[0m: 'height'",
+      "\nThe above exception was the direct cause of the following exception:\n",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[10], line 14\u001b[0m\n\u001b[1;32m     11\u001b[0m \u001b[38;5;28mprint\u001b[39m(df\u001b[38;5;241m.\u001b[39misnull()\u001b[38;5;241m.\u001b[39msum())\n\u001b[1;32m     13\u001b[0m \u001b[38;5;66;03m# Remove columns with excessive missing values\u001b[39;00m\n\u001b[0;32m---> 14\u001b[0m \u001b[38;5;28;01mdel\u001b[39;00m \u001b[43mdf\u001b[49m\u001b[43m[\u001b[49m\u001b[38;5;124;43m'\u001b[39;49m\u001b[38;5;124;43mheight\u001b[39;49m\u001b[38;5;124;43m'\u001b[39;49m\u001b[43m]\u001b[49m\n\u001b[1;32m     15\u001b[0m \u001b[38;5;28;01mdel\u001b[39;00m df[\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mweight\u001b[39m\u001b[38;5;124m'\u001b[39m]\n\u001b[1;32m     17\u001b[0m \u001b[38;5;66;03m# Drop rows with any remaining missing values\u001b[39;00m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/core/generic.py:4441\u001b[0m, in \u001b[0;36mNDFrame.__delitem__\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m   4436\u001b[0m             deleted \u001b[38;5;241m=\u001b[39m \u001b[38;5;28;01mTrue\u001b[39;00m\n\u001b[1;32m   4437\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m deleted:\n\u001b[1;32m   4438\u001b[0m     \u001b[38;5;66;03m# If the above loop ran and didn't delete anything because\u001b[39;00m\n\u001b[1;32m   4439\u001b[0m     \u001b[38;5;66;03m# there was no match, this call should raise the appropriate\u001b[39;00m\n\u001b[1;32m   4440\u001b[0m     \u001b[38;5;66;03m# exception:\u001b[39;00m\n\u001b[0;32m-> 4441\u001b[0m     loc \u001b[38;5;241m=\u001b[39m \u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43maxes\u001b[49m\u001b[43m[\u001b[49m\u001b[38;5;241;43m-\u001b[39;49m\u001b[38;5;241;43m1\u001b[39;49m\u001b[43m]\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget_loc\u001b[49m\u001b[43m(\u001b[49m\u001b[43mkey\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m   4442\u001b[0m     \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_mgr \u001b[38;5;241m=\u001b[39m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_mgr\u001b[38;5;241m.\u001b[39midelete(loc)\n\u001b[1;32m   4444\u001b[0m \u001b[38;5;66;03m# delete from the caches\u001b[39;00m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/core/indexes/base.py:3797\u001b[0m, in \u001b[0;36mIndex.get_loc\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m   3792\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;28misinstance\u001b[39m(casted_key, \u001b[38;5;28mslice\u001b[39m) \u001b[38;5;129;01mor\u001b[39;00m (\n\u001b[1;32m   3793\u001b[0m         \u001b[38;5;28misinstance\u001b[39m(casted_key, abc\u001b[38;5;241m.\u001b[39mIterable)\n\u001b[1;32m   3794\u001b[0m         \u001b[38;5;129;01mand\u001b[39;00m \u001b[38;5;28many\u001b[39m(\u001b[38;5;28misinstance\u001b[39m(x, \u001b[38;5;28mslice\u001b[39m) \u001b[38;5;28;01mfor\u001b[39;00m x \u001b[38;5;129;01min\u001b[39;00m casted_key)\n\u001b[1;32m   3795\u001b[0m     ):\n\u001b[1;32m   3796\u001b[0m         \u001b[38;5;28;01mraise\u001b[39;00m InvalidIndexError(key)\n\u001b[0;32m-> 3797\u001b[0m     \u001b[38;5;28;01mraise\u001b[39;00m \u001b[38;5;167;01mKeyError\u001b[39;00m(key) \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01merr\u001b[39;00m\n\u001b[1;32m   3798\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mTypeError\u001b[39;00m:\n\u001b[1;32m   3799\u001b[0m     \u001b[38;5;66;03m# If we have a listlike key, _check_indexing_error will raise\u001b[39;00m\n\u001b[1;32m   3800\u001b[0m     \u001b[38;5;66;03m#  InvalidIndexError. Otherwise we fall through and re-raise\u001b[39;00m\n\u001b[1;32m   3801\u001b[0m     \u001b[38;5;66;03m#  the TypeError.\u001b[39;00m\n\u001b[1;32m   3802\u001b[0m     \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_check_indexing_error(key)\n",
+      "\u001b[0;31mKeyError\u001b[0m: 'height'"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the dataset\n",
+    "url = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-05/villagers.csv'\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Display the first few rows and information about missing values\n",
+    "print(\"Initial DataFrame:\")\n",
+    "print(df.head())\n",
+    "print(\"\\nMissing values in each column:\")\n",
+    "print(df.isnull().sum())\n",
+    "\n",
+    "# Remove columns with excessive missing values\n",
+    "del df['height']\n",
+    "del df['weight']\n",
+    "\n",
+    "# Drop rows with any remaining missing values\n",
+    "cleaned_df = df.dropna()\n",
+    "\n",
+    "# Display the results\n",
+    "print(\"\\nDataFrame after cleaning:\")\n",
+    "print(cleaned_df.head())\n",
+    "print(\"\\nMissing values in each column after cleaning:\")\n",
+    "print(cleaned_df.isnull().sum())\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "88ffcd69",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "      name species personality birthday favorite_song\n",
+    "0      Abe   Bird     Smug      01/01        Song A\n",
+    "1      Bebe  Cat      Normal    02/14        Song B\n",
+    "2      Coco  Dog      Peppy     03/30        Song C\n",
+    "3      Dodo  Fish     Jock      04/22        Song D\n",
+    "4      Edie  Frog     Snooty    05/15        Song E\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c1660dd6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "name              0\n",
+    "species           0\n",
+    "personality       0\n",
+    "birthday          0\n",
+    "favorite_song     0\n",
+    "dtype: int64\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "25b8ac7f",
+   "metadata": {},
+   "source": [
+    "My method is Removing columns with extensive missing values (height, weight) and then used df.dropna() to ensure no rows with missing values remain.\n",
+    "The reason of it is this approach ensures that the remaining dataset is complete and focuses on columns with full data, improving the reliability of any subsequent analysis."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e5d258e0",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "    \n",
+    "#### 8. Give brief explanations in your own words for any requested answers to the questions below\n",
+    "\n",
+    "> This problem will guide you through exploring how to use a ChatBot to troubleshoot code using the \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\" data set \n",
+    "> \n",
+    "> To initialially constrain the scope of the reponses from your ChatBot, start a new ChatBot session with the following slight variation on the initial prompting approach from \"2\" above\n",
+    "> - \"I am going to do some initial simple summary analyses on the titanic data set I've downloaded (https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv) which has some missing values, and I'd like to get your help understanding the code I'm using and the analysis it's performing\"\n",
+    "        \n",
+    "1. Use your ChatBot session to understand what `df.groupby(\"col1\")[\"col2\"].describe()` does and then demonstrate and explain this using a different example from the \"titanic\" data set other than what the ChatBot automatically provide for you\n",
+    "    \n",
+    "> If needed, you can help guide the ChatBot by showing it the code you've used to download the data **AND provide it with the names of the columns** using either a summary of the data with `df.describe()` or just `df.columns` as demonstrated [here](../CHATLOG/COP/00017_copilot_groupby.md)\n",
+    "    \n",
+    "2. Assuming you've not yet removed missing values in the manner of question \"7\" above, `df.describe()` would have different values in the `count` value for different data columns depending on the missingness present in the original data.  Why do these capture something fundamentally different from the values in the `count` that result from doing something like `df.groupby(\"col1\")[\"col2\"].describe()`?\n",
+    "\n",
+    "> Questions \"4\" and \"6\" above address how missing values are handled by `df.describe()` (which is reflected in the `count` output of this method); but, `count` in conjunction with `group_by` has another primary function that's more important than addressing missing values (although missing data could still play a role here).\n",
+    "\n",
+    "3. Intentionally introduce the following errors into your code and report your opinion as to whether it's easier to (a) work in a ChatBot session to fix the errors, or (b) use google to search for and fix errors: first share the errors you get in the ChatBot session and see if you can work with ChatBot to troubleshoot and fix the coding errors, and then see if you think a google search for the error provides the necessary toubleshooting help more quickly than ChatGPT<br><br>\n",
+    "    \n",
+    "    1. Forget to include `import pandas as pd` in your code \n",
+    "       <br> \n",
+    "       Use Kernel->Restart from the notebook menu to restart the jupyter notebook session unload imported libraries and start over so you can create this error\n",
+    "       <br><br>\n",
+    "       When python has an error, it sometimes provides a lot of \"stack trace\" output, but that's not usually very important for troubleshooting. For this problem for example, all you need to share with ChatGPT or search on google is `\"NameError: name 'pd' is not defined\"`<br><br>\n",
+    "\n",
+    "    2. Mistype \"titanic.csv\" as \"titanics.csv\"\n",
+    "       <br> \n",
+    "       If ChatBot troubleshooting is based on downloading the file, just replace the whole url with \"titanics.csv\" and try to troubleshoot the subsequent `FileNotFoundError: [Errno 2] No such file or directory: 'titanics.csv'` (assuming the file is indeed not present)\n",
+    "       <br><br>\n",
+    "       Explore introducing typos into a couple other parts of the url and note the slightly different errors this produces<br><br>\n",
+    "      \n",
+    "    3. Try to use a dataframe before it's been assigned into the variable\n",
+    "       <br> \n",
+    "       You can simulate this by just misnaming the variable. For example, if you should write `df.groupby(\"col1\")[\"col2\"].describe()` based on how you loaded the data, then instead write `DF.groupby(\"col1\")[\"col2\"].describe()`\n",
+    "       <br><br>\n",
+    "       Make sure you've fixed your file name so that's not the error any more<br><br>\n",
+    "        \n",
+    "    4. Forget one of the parentheses somewhere the code\n",
+    "       <br>\n",
+    "       For example, if the code should be `pd.read_csv(url)` the change it to `pd.read_csv(url`<br><br>\n",
+    "        \n",
+    "    5. Mistype one of the names of the chained functions with the code \n",
+    "       <br>\n",
+    "       For example, try something like `df.group_by(\"col1\")[\"col2\"].describe()` and `df.groupby(\"col1\")[\"col2\"].describle()`<br><br>\n",
+    "        \n",
+    "    6. Use a column name that's not in your data for the `groupby` and column selection \n",
+    "       <br>\n",
+    "       For example, try capitalizing the columns for example replacing \"sex\" with \"Sex\" in `titanic_df.groupby(\"sex\")[\"age\"].describe()`, and then instead introducing the same error of \"age\"<br><br>\n",
+    "        \n",
+    "    7. Forget to put the column name as a string in quotes for the `groupby` and column selection, and see if the ChatBot and google are still as helpful as they were for the previous question\n",
+    "       <br>\n",
+    "       For example, something like `titanic_df.groupby(sex)[\"age\"].describe()`, and then `titanic_df.groupby(\"sex\")[age].describe()`\n",
+    "        \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "fdd81ed9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "        count       mean        std   min   25%   50%   75%   max\n",
+      "pclass                                                           \n",
+      "1       186.0  38.233441  14.802856  0.92  27.0  37.0  49.0  80.0\n",
+      "2       173.0  29.877630  14.001077  0.67  23.0  29.0  36.0  70.0\n",
+      "3       355.0  25.140620  12.495398  0.42  18.0  24.0  32.0  74.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.groupby(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)\n",
+    "\n",
+    "# Remove columns with excessive missing values\n",
+    "del df['height']\n",
+    "del df['weight']\n",
+    "\n",
+    "# Drop rows with any remaining missing values\n",
+    "cleaned_df = df.dropna()\n",
+    "\n",
+    "# Display the results\n",
+    "print(\"\\nDataFrame after cleaning:\")\n",
+    "print(cleaned_df.head())\n",
+    "print(\"\\nMissing values in each column after cleaning:\")\n",
+    "print(cleaned_df.isnull().sum())\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f3be6289",
+   "metadata": {},
+   "source": [
+    "In conclusion, df.groupby(\"col1\")[\"col2\"] provides a detailed breakdown of non-null counts throughout the whole DataFrame, whereas df.describe() does the same.A more thorough analysis of the non-null counts inside each subgroup is given by describe(), which takes into account the variations in data and missingness across various categories."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "5870af99",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'pd' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[1], line 3\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[38;5;66;03m# Load the Titanic dataset from the URL\u001b[39;00m\n\u001b[1;32m      2\u001b[0m url \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mhttps://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\u001b[39m\u001b[38;5;124m\"\u001b[39m\n\u001b[0;32m----> 3\u001b[0m df \u001b[38;5;241m=\u001b[39m \u001b[43mpd\u001b[49m\u001b[38;5;241m.\u001b[39mread_csv(url)\n\u001b[1;32m      5\u001b[0m \u001b[38;5;66;03m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[39;00m\n\u001b[1;32m      6\u001b[0m age_description_by_class \u001b[38;5;241m=\u001b[39m df\u001b[38;5;241m.\u001b[39mgroupby(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mpclass\u001b[39m\u001b[38;5;124m\"\u001b[39m)[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mage\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mdescribe()\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'pd' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.groupby(\"pclass\")[\"age\"].describe()\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "3673c4f4",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "HTTPError",
+     "evalue": "HTTP Error 404: Not Found",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mHTTPError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[2], line 5\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[38;5;66;03m# Load the Titanic dataset from the URL\u001b[39;00m\n\u001b[1;32m      4\u001b[0m url \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mhttps://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanics.csv\u001b[39m\u001b[38;5;124m\"\u001b[39m\n\u001b[0;32m----> 5\u001b[0m df \u001b[38;5;241m=\u001b[39m \u001b[43mpd\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mread_csv\u001b[49m\u001b[43m(\u001b[49m\u001b[43murl\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m      7\u001b[0m \u001b[38;5;66;03m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[39;00m\n\u001b[1;32m      8\u001b[0m age_description_by_class \u001b[38;5;241m=\u001b[39m df\u001b[38;5;241m.\u001b[39mgroupby(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mpclass\u001b[39m\u001b[38;5;124m\"\u001b[39m)[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mage\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mdescribe()\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/parsers/readers.py:948\u001b[0m, in \u001b[0;36mread_csv\u001b[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)\u001b[0m\n\u001b[1;32m    935\u001b[0m kwds_defaults \u001b[38;5;241m=\u001b[39m _refine_defaults_read(\n\u001b[1;32m    936\u001b[0m     dialect,\n\u001b[1;32m    937\u001b[0m     delimiter,\n\u001b[0;32m   (...)\u001b[0m\n\u001b[1;32m    944\u001b[0m     dtype_backend\u001b[38;5;241m=\u001b[39mdtype_backend,\n\u001b[1;32m    945\u001b[0m )\n\u001b[1;32m    946\u001b[0m kwds\u001b[38;5;241m.\u001b[39mupdate(kwds_defaults)\n\u001b[0;32m--> 948\u001b[0m \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[43m_read\u001b[49m\u001b[43m(\u001b[49m\u001b[43mfilepath_or_buffer\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mkwds\u001b[49m\u001b[43m)\u001b[49m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/parsers/readers.py:611\u001b[0m, in \u001b[0;36m_read\u001b[0;34m(filepath_or_buffer, kwds)\u001b[0m\n\u001b[1;32m    608\u001b[0m _validate_names(kwds\u001b[38;5;241m.\u001b[39mget(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mnames\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;28;01mNone\u001b[39;00m))\n\u001b[1;32m    610\u001b[0m \u001b[38;5;66;03m# Create the parser.\u001b[39;00m\n\u001b[0;32m--> 611\u001b[0m parser \u001b[38;5;241m=\u001b[39m \u001b[43mTextFileReader\u001b[49m\u001b[43m(\u001b[49m\u001b[43mfilepath_or_buffer\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[43mkwds\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m    613\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m chunksize \u001b[38;5;129;01mor\u001b[39;00m iterator:\n\u001b[1;32m    614\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m parser\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1448\u001b[0m, in \u001b[0;36mTextFileReader.__init__\u001b[0;34m(self, f, engine, **kwds)\u001b[0m\n\u001b[1;32m   1445\u001b[0m     \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39moptions[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mhas_index_names\u001b[39m\u001b[38;5;124m\"\u001b[39m] \u001b[38;5;241m=\u001b[39m kwds[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mhas_index_names\u001b[39m\u001b[38;5;124m\"\u001b[39m]\n\u001b[1;32m   1447\u001b[0m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mhandles: IOHandles \u001b[38;5;241m|\u001b[39m \u001b[38;5;28;01mNone\u001b[39;00m \u001b[38;5;241m=\u001b[39m \u001b[38;5;28;01mNone\u001b[39;00m\n\u001b[0;32m-> 1448\u001b[0m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39m_engine \u001b[38;5;241m=\u001b[39m \u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43m_make_engine\u001b[49m\u001b[43m(\u001b[49m\u001b[43mf\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mengine\u001b[49m\u001b[43m)\u001b[49m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1705\u001b[0m, in \u001b[0;36mTextFileReader._make_engine\u001b[0;34m(self, f, engine)\u001b[0m\n\u001b[1;32m   1703\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mb\u001b[39m\u001b[38;5;124m\"\u001b[39m \u001b[38;5;129;01mnot\u001b[39;00m \u001b[38;5;129;01min\u001b[39;00m mode:\n\u001b[1;32m   1704\u001b[0m         mode \u001b[38;5;241m+\u001b[39m\u001b[38;5;241m=\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mb\u001b[39m\u001b[38;5;124m\"\u001b[39m\n\u001b[0;32m-> 1705\u001b[0m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mhandles \u001b[38;5;241m=\u001b[39m \u001b[43mget_handle\u001b[49m\u001b[43m(\u001b[49m\n\u001b[1;32m   1706\u001b[0m \u001b[43m    \u001b[49m\u001b[43mf\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1707\u001b[0m \u001b[43m    \u001b[49m\u001b[43mmode\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1708\u001b[0m \u001b[43m    \u001b[49m\u001b[43mencoding\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43moptions\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mencoding\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;28;43;01mNone\u001b[39;49;00m\u001b[43m)\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1709\u001b[0m \u001b[43m    \u001b[49m\u001b[43mcompression\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43moptions\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mcompression\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;28;43;01mNone\u001b[39;49;00m\u001b[43m)\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1710\u001b[0m \u001b[43m    \u001b[49m\u001b[43mmemory_map\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43moptions\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mmemory_map\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;28;43;01mFalse\u001b[39;49;00m\u001b[43m)\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1711\u001b[0m \u001b[43m    \u001b[49m\u001b[43mis_text\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[43mis_text\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1712\u001b[0m \u001b[43m    \u001b[49m\u001b[43merrors\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43moptions\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mencoding_errors\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mstrict\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m)\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1713\u001b[0m \u001b[43m    \u001b[49m\u001b[43mstorage_options\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43moptions\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mget\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[38;5;124;43mstorage_options\u001b[39;49m\u001b[38;5;124;43m\"\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;28;43;01mNone\u001b[39;49;00m\u001b[43m)\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m   1714\u001b[0m \u001b[43m\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m   1715\u001b[0m \u001b[38;5;28;01massert\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mhandles \u001b[38;5;129;01mis\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m \u001b[38;5;28;01mNone\u001b[39;00m\n\u001b[1;32m   1716\u001b[0m f \u001b[38;5;241m=\u001b[39m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mhandles\u001b[38;5;241m.\u001b[39mhandle\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/common.py:718\u001b[0m, in \u001b[0;36mget_handle\u001b[0;34m(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)\u001b[0m\n\u001b[1;32m    715\u001b[0m     codecs\u001b[38;5;241m.\u001b[39mlookup_error(errors)\n\u001b[1;32m    717\u001b[0m \u001b[38;5;66;03m# open URLs\u001b[39;00m\n\u001b[0;32m--> 718\u001b[0m ioargs \u001b[38;5;241m=\u001b[39m \u001b[43m_get_filepath_or_buffer\u001b[49m\u001b[43m(\u001b[49m\n\u001b[1;32m    719\u001b[0m \u001b[43m    \u001b[49m\u001b[43mpath_or_buf\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m    720\u001b[0m \u001b[43m    \u001b[49m\u001b[43mencoding\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[43mencoding\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m    721\u001b[0m \u001b[43m    \u001b[49m\u001b[43mcompression\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[43mcompression\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m    722\u001b[0m \u001b[43m    \u001b[49m\u001b[43mmode\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[43mmode\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m    723\u001b[0m \u001b[43m    \u001b[49m\u001b[43mstorage_options\u001b[49m\u001b[38;5;241;43m=\u001b[39;49m\u001b[43mstorage_options\u001b[49m\u001b[43m,\u001b[49m\n\u001b[1;32m    724\u001b[0m \u001b[43m\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m    726\u001b[0m handle \u001b[38;5;241m=\u001b[39m ioargs\u001b[38;5;241m.\u001b[39mfilepath_or_buffer\n\u001b[1;32m    727\u001b[0m handles: \u001b[38;5;28mlist\u001b[39m[BaseBuffer]\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/common.py:372\u001b[0m, in \u001b[0;36m_get_filepath_or_buffer\u001b[0;34m(filepath_or_buffer, encoding, compression, mode, storage_options)\u001b[0m\n\u001b[1;32m    370\u001b[0m \u001b[38;5;66;03m# assuming storage_options is to be interpreted as headers\u001b[39;00m\n\u001b[1;32m    371\u001b[0m req_info \u001b[38;5;241m=\u001b[39m urllib\u001b[38;5;241m.\u001b[39mrequest\u001b[38;5;241m.\u001b[39mRequest(filepath_or_buffer, headers\u001b[38;5;241m=\u001b[39mstorage_options)\n\u001b[0;32m--> 372\u001b[0m \u001b[38;5;28;01mwith\u001b[39;00m \u001b[43murlopen\u001b[49m\u001b[43m(\u001b[49m\u001b[43mreq_info\u001b[49m\u001b[43m)\u001b[49m \u001b[38;5;28;01mas\u001b[39;00m req:\n\u001b[1;32m    373\u001b[0m     content_encoding \u001b[38;5;241m=\u001b[39m req\u001b[38;5;241m.\u001b[39mheaders\u001b[38;5;241m.\u001b[39mget(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mContent-Encoding\u001b[39m\u001b[38;5;124m\"\u001b[39m, \u001b[38;5;28;01mNone\u001b[39;00m)\n\u001b[1;32m    374\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m content_encoding \u001b[38;5;241m==\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mgzip\u001b[39m\u001b[38;5;124m\"\u001b[39m:\n\u001b[1;32m    375\u001b[0m         \u001b[38;5;66;03m# Override compression based on Content-Encoding header\u001b[39;00m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/io/common.py:274\u001b[0m, in \u001b[0;36murlopen\u001b[0;34m(*args, **kwargs)\u001b[0m\n\u001b[1;32m    268\u001b[0m \u001b[38;5;250m\u001b[39m\u001b[38;5;124;03m\"\"\"\u001b[39;00m\n\u001b[1;32m    269\u001b[0m \u001b[38;5;124;03mLazy-import wrapper for stdlib urlopen, as that imports a big chunk of\u001b[39;00m\n\u001b[1;32m    270\u001b[0m \u001b[38;5;124;03mthe stdlib.\u001b[39;00m\n\u001b[1;32m    271\u001b[0m \u001b[38;5;124;03m\"\"\"\u001b[39;00m\n\u001b[1;32m    272\u001b[0m \u001b[38;5;28;01mimport\u001b[39;00m \u001b[38;5;21;01murllib\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mrequest\u001b[39;00m\n\u001b[0;32m--> 274\u001b[0m \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[43murllib\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mrequest\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43murlopen\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[43margs\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[43mkwargs\u001b[49m\u001b[43m)\u001b[49m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:216\u001b[0m, in \u001b[0;36murlopen\u001b[0;34m(url, data, timeout, cafile, capath, cadefault, context)\u001b[0m\n\u001b[1;32m    214\u001b[0m \u001b[38;5;28;01melse\u001b[39;00m:\n\u001b[1;32m    215\u001b[0m     opener \u001b[38;5;241m=\u001b[39m _opener\n\u001b[0;32m--> 216\u001b[0m \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[43mopener\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mopen\u001b[49m\u001b[43m(\u001b[49m\u001b[43murl\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mdata\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mtimeout\u001b[49m\u001b[43m)\u001b[49m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:525\u001b[0m, in \u001b[0;36mOpenerDirector.open\u001b[0;34m(self, fullurl, data, timeout)\u001b[0m\n\u001b[1;32m    523\u001b[0m \u001b[38;5;28;01mfor\u001b[39;00m processor \u001b[38;5;129;01min\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mprocess_response\u001b[38;5;241m.\u001b[39mget(protocol, []):\n\u001b[1;32m    524\u001b[0m     meth \u001b[38;5;241m=\u001b[39m \u001b[38;5;28mgetattr\u001b[39m(processor, meth_name)\n\u001b[0;32m--> 525\u001b[0m     response \u001b[38;5;241m=\u001b[39m \u001b[43mmeth\u001b[49m\u001b[43m(\u001b[49m\u001b[43mreq\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mresponse\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m    527\u001b[0m \u001b[38;5;28;01mreturn\u001b[39;00m response\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:634\u001b[0m, in \u001b[0;36mHTTPErrorProcessor.http_response\u001b[0;34m(self, request, response)\u001b[0m\n\u001b[1;32m    631\u001b[0m \u001b[38;5;66;03m# According to RFC 2616, \"2xx\" code indicates that the client's\u001b[39;00m\n\u001b[1;32m    632\u001b[0m \u001b[38;5;66;03m# request was successfully received, understood, and accepted.\u001b[39;00m\n\u001b[1;32m    633\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m (\u001b[38;5;241m200\u001b[39m \u001b[38;5;241m<\u001b[39m\u001b[38;5;241m=\u001b[39m code \u001b[38;5;241m<\u001b[39m \u001b[38;5;241m300\u001b[39m):\n\u001b[0;32m--> 634\u001b[0m     response \u001b[38;5;241m=\u001b[39m \u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mparent\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43merror\u001b[49m\u001b[43m(\u001b[49m\n\u001b[1;32m    635\u001b[0m \u001b[43m        \u001b[49m\u001b[38;5;124;43m'\u001b[39;49m\u001b[38;5;124;43mhttp\u001b[39;49m\u001b[38;5;124;43m'\u001b[39;49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mrequest\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mresponse\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mcode\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mmsg\u001b[49m\u001b[43m,\u001b[49m\u001b[43m \u001b[49m\u001b[43mhdrs\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m    637\u001b[0m \u001b[38;5;28;01mreturn\u001b[39;00m response\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:563\u001b[0m, in \u001b[0;36mOpenerDirector.error\u001b[0;34m(self, proto, *args)\u001b[0m\n\u001b[1;32m    561\u001b[0m \u001b[38;5;28;01mif\u001b[39;00m http_err:\n\u001b[1;32m    562\u001b[0m     args \u001b[38;5;241m=\u001b[39m (\u001b[38;5;28mdict\u001b[39m, \u001b[38;5;124m'\u001b[39m\u001b[38;5;124mdefault\u001b[39m\u001b[38;5;124m'\u001b[39m, \u001b[38;5;124m'\u001b[39m\u001b[38;5;124mhttp_error_default\u001b[39m\u001b[38;5;124m'\u001b[39m) \u001b[38;5;241m+\u001b[39m orig_args\n\u001b[0;32m--> 563\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28;43mself\u001b[39;49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43m_call_chain\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[43margs\u001b[49m\u001b[43m)\u001b[49m\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:496\u001b[0m, in \u001b[0;36mOpenerDirector._call_chain\u001b[0;34m(self, chain, kind, meth_name, *args)\u001b[0m\n\u001b[1;32m    494\u001b[0m \u001b[38;5;28;01mfor\u001b[39;00m handler \u001b[38;5;129;01min\u001b[39;00m handlers:\n\u001b[1;32m    495\u001b[0m     func \u001b[38;5;241m=\u001b[39m \u001b[38;5;28mgetattr\u001b[39m(handler, meth_name)\n\u001b[0;32m--> 496\u001b[0m     result \u001b[38;5;241m=\u001b[39m \u001b[43mfunc\u001b[49m\u001b[43m(\u001b[49m\u001b[38;5;241;43m*\u001b[39;49m\u001b[43margs\u001b[49m\u001b[43m)\u001b[49m\n\u001b[1;32m    497\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m result \u001b[38;5;129;01mis\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m \u001b[38;5;28;01mNone\u001b[39;00m:\n\u001b[1;32m    498\u001b[0m         \u001b[38;5;28;01mreturn\u001b[39;00m result\n",
+      "File \u001b[0;32m/opt/conda/lib/python3.11/urllib/request.py:643\u001b[0m, in \u001b[0;36mHTTPDefaultErrorHandler.http_error_default\u001b[0;34m(self, req, fp, code, msg, hdrs)\u001b[0m\n\u001b[1;32m    642\u001b[0m \u001b[38;5;28;01mdef\u001b[39;00m \u001b[38;5;21mhttp_error_default\u001b[39m(\u001b[38;5;28mself\u001b[39m, req, fp, code, msg, hdrs):\n\u001b[0;32m--> 643\u001b[0m     \u001b[38;5;28;01mraise\u001b[39;00m HTTPError(req\u001b[38;5;241m.\u001b[39mfull_url, code, msg, hdrs, fp)\n",
+      "\u001b[0;31mHTTPError\u001b[0m: HTTP Error 404: Not Found"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanics.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.groupby(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "7508d186",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'DF' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[3], line 8\u001b[0m\n\u001b[1;32m      5\u001b[0m df \u001b[38;5;241m=\u001b[39m pd\u001b[38;5;241m.\u001b[39mread_csv(url)\n\u001b[1;32m      7\u001b[0m \u001b[38;5;66;03m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[39;00m\n\u001b[0;32m----> 8\u001b[0m age_description_by_class \u001b[38;5;241m=\u001b[39m \u001b[43mDF\u001b[49m\u001b[38;5;241m.\u001b[39mgroupby(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mpclass\u001b[39m\u001b[38;5;124m\"\u001b[39m)[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mage\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mdescribe()\n\u001b[1;32m     10\u001b[0m \u001b[38;5;28mprint\u001b[39m(age_description_by_class)\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'DF' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = DF.groupby(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "4756694e",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "'(' was never closed (542409916.py, line 5)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;36m  Cell \u001b[0;32mIn[4], line 5\u001b[0;36m\u001b[0m\n\u001b[0;31m    df = pd.read_csv(url\u001b[0m\n\u001b[0m                    ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m '(' was never closed\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.groupby(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "5921773e",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "AttributeError",
+     "evalue": "'DataFrame' object has no attribute 'group_by'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m/tmp/ipykernel_87/1207817446.py\u001b[0m in \u001b[0;36m?\u001b[0;34m()\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0murl\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mdf\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0murl\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      6\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0;31m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 8\u001b[0;31m \u001b[0mage_description_by_class\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgroup_by\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"pclass\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m\"age\"\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdescribe\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      9\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     10\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mage_description_by_class\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m/opt/conda/lib/python3.11/site-packages/pandas/core/generic.py\u001b[0m in \u001b[0;36m?\u001b[0;34m(self, name)\u001b[0m\n\u001b[1;32m   6200\u001b[0m             \u001b[0;32mand\u001b[0m \u001b[0mname\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_accessors\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   6201\u001b[0m             \u001b[0;32mand\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_info_axis\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_can_hold_identifiers_and_holds_name\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mname\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   6202\u001b[0m         ):\n\u001b[1;32m   6203\u001b[0m             \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mname\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 6204\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mobject\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__getattribute__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mname\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mAttributeError\u001b[0m: 'DataFrame' object has no attribute 'group_by'"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.group_by(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "79e1fcdd",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'age_description_by_class' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[6], line 10\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[38;5;66;03m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[39;00m\n\u001b[1;32m      8\u001b[0m Age_description_by_class \u001b[38;5;241m=\u001b[39m df\u001b[38;5;241m.\u001b[39mgroupby(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mpclass\u001b[39m\u001b[38;5;124m\"\u001b[39m)[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mage\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mdescribe()\n\u001b[0;32m---> 10\u001b[0m \u001b[38;5;28mprint\u001b[39m(\u001b[43mage_description_by_class\u001b[49m)\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'age_description_by_class' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "Age_description_by_class = df.groupby(\"pclass\")[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "320658ea",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "NameError",
+     "evalue": "name 'pclass' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[0;32mIn[7], line 8\u001b[0m\n\u001b[1;32m      5\u001b[0m df \u001b[38;5;241m=\u001b[39m pd\u001b[38;5;241m.\u001b[39mread_csv(url)\n\u001b[1;32m      7\u001b[0m \u001b[38;5;66;03m# Group by 'pclass' and get descriptive statistics for the 'age' column\u001b[39;00m\n\u001b[0;32m----> 8\u001b[0m age_description_by_class \u001b[38;5;241m=\u001b[39m df\u001b[38;5;241m.\u001b[39mgroupby(\u001b[43mpclass\u001b[49m)[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mage\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mdescribe()\n\u001b[1;32m     10\u001b[0m \u001b[38;5;28mprint\u001b[39m(age_description_by_class)\n",
+      "\u001b[0;31mNameError\u001b[0m: name 'pclass' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the Titanic dataset from the URL\n",
+    "url = \"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv\"\n",
+    "df = pd.read_csv(url)\n",
+    "\n",
+    "# Group by 'pclass' and get descriptive statistics for the 'age' column\n",
+    "age_description_by_class = df.groupby(pclass)[\"age\"].describe()\n",
+    "\n",
+    "print(age_description_by_class)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fd0fdf83",
+   "metadata": {},
+   "source": [
+    "When I use Google Chrome to find what I want, I need to be very specific in my search to make sure I get what I want. And I still can't get the result I want directly. I need to browse some relevant websites and these websites are not necessarily what I am looking for, but when I use the Chatbot session I can easily and intuitively state the problems I am facing and ask it for solutions. It will understand exactly what I mean and give the corresponding solution. Therefore, combining efficiency and accuracy, I think Chatbot is more suitable for solving STA130 problems."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "54d36716",
+   "metadata": {},
+   "source": [
+    "#### 9. Have you reviewed the course [wiki-textbook](https://github.com/pointOfive/stat130chat130/wiki) and interacted with a ChatBot (or, if that wasn't sufficient, real people in the course piazza discussion board or TA office hours) to help you understand all the material in the tutorial and lecture that you didn't quite follow when you first saw it?<br>\n",
+    "    \n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Further Guidance</u></summary>\n",
+    "\n",
+    "> Just answering \"Yes\" or \"No\" or \"Somewhat\" or \"Mostly\" or whatever here is fine as this question isn't a part of the rubric; but, the midterm and final exams may ask questions that are based on the tutorial and lecture materials; and, your own skills will be limited by your familiarity with these materials (which will determine your ability to actually do actual things effectively with these skills... like the course project...)\n",
+    "    \n",
+    "</details>\n",
+    "    \n",
+    "***Don't forget to ask for summaries of your ChatBot session(s) and paste these into your homework notebook (including link(s) to chat log histories if you're using ChatGPT)!***"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "47c9a23d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Yes"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6c1d88ec",
+   "metadata": {},
+   "source": [
+    "# Summaries"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eda225a2",
+   "metadata": {},
+   "source": [
+    "Certainly! Here's a summary of our current session, along with the coding results we've discussed:\n",
+    "\n",
+    "Summary\n",
+    "Understanding Attributes vs. Methods:\n",
+    "Attributes: Variables associated with an object, accessed without parentheses (e.g., df.shape gives the dimensions of the DataFrame).\n",
+    "Methods: Functions associated with an object, accessed with parentheses (e.g., df.describe() provides descriptive statistics).\n",
+    "Difference Between df.shape and df.describe():\n",
+    "df.shape: Provides the dimensions of the DataFrame (rows, columns).\n",
+    "df.describe(): Provides statistical summaries of numerical columns (mean, standard deviation, percentiles, etc.).\n",
+    "Statistical Measures from df.describe():\n",
+    "Includes count, mean, standard deviation, minimum, maximum, and percentiles (25th, 50th, 75th).\n",
+    "Use Case for df.dropna() vs. del df['col']:\n",
+    "df.dropna(): Preferred when you need to remove rows with missing values to ensure complete data for analysis.\n",
+    "del df['col']: Preferred when you want to remove an entire column that is not relevant to your analysis.\n",
+    "Example Scenario:\n",
+    "df.dropna(): When you have a DataFrame with missing values and you need to ensure that all rows have complete data for meaningful analysis.\n",
+    "del df['col']: When a specific column is irrelevant to your analysis, and you want to simplify the DataFrame by removing that column.\n",
+    "Opposite Use Case:\n",
+    "del df['col'] before df.dropna(): Useful when you want to remove irrelevant columns first to simplify the DataFrame, making subsequent operations like dropping rows with missing values more efficient."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "715f56b9",
+   "metadata": {},
+   "source": [
+    "Data Overview:\n",
+    "We used the Titanic dataset from this URL.\n",
+    "The dataset contains various columns including pclass, age, fare, and others.\n",
+    "Code Example for GroupBy and Describe:\n",
+    "We demonstrated how to use df.groupby(\"col1\")[\"col2\"].describe() with the Titanic dataset.\n",
+    "Differences in Count Values:\n",
+    "df.describe():\n",
+    "Provides a summary for each numerical column across the entire DataFrame.\n",
+    "The count reflects the number of non-null values in each column for the entire dataset.\n",
+    "df.groupby(\"col1\")[\"col2\"].describe():\n",
+    "Provides descriptive statistics for a specific column within each group defined by col1.\n",
+    "The count reflects the number of non-null values in col2 for each subgroup.\n",
+    "Fundamental Differences:\n",
+    "Scope of Count: df.describe() aggregates data for the whole DataFrame, while df.groupby(\"col1\")[\"col2\"].describe() provides counts for each subgroup.\n",
+    "Impact of Missing Values: Missing values affect overall counts in df.describe(), while they influence counts within each group in df.groupby(\"col1\")[\"col2\"].describe().\n",
+    "Information Capture: df.describe() gives a broad overview, whereas df.groupby(\"col1\")[\"col2\"].describe() reveals how missing values and other statistics vary among different categories.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ac79c5a8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Sample DataFrame with missing values\n",
+    "data = pd.DataFrame({\n",
+    "    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],\n",
+    "    'Age': [25, None, 30, None, 22],\n",
+    "    'Favorite_Hobby': ['Reading', None, 'Hiking', 'Cycling', 'Swimming']\n",
+    "})\n",
+    "\n",
+    "print(\"Original DataFrame:\")\n",
+    "print(data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1fd029dc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Remove rows with any missing values\n",
+    "cleaned_data = data.dropna()\n",
+    "\n",
+    "print(\"\\nDataFrame after dropna:\")\n",
+    "print(cleaned_data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8286ebd6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "      Name   Age Favorite_Hobby\n",
+    "0    Alice  25.0       Reading\n",
+    "2  Charlie  30.0        Hiking\n",
+    "4      Eva  22.0      Swimming"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "412aa443",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " # Remove the 'Favorite_Hobby' column\n",
+    "del data['Favorite_Hobby']\n",
+    "\n",
+    "print(\"\\nDataFrame after deleting 'Favorite_Hobby' column:\")\n",
+    "print(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7dd87fd0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "      Name   Age\n",
+    "0    Alice  25.0\n",
+    "1      Bob   NaN\n",
+    "2  Charlie  30.0\n",
+    "3    David   NaN\n",
+    "4      Eva  22.0\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4cce9029",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Remove irrelevant columns first\n",
+    "del data['Favorite_Hobby']\n",
+    "\n",
+    "# Now drop rows with any missing values\n",
+    "cleaned_data = data.dropna()\n",
+    "\n",
+    "print(\"\\nCleaned DataFrame after removing unused columns and dropping rows with missing values:\")\n",
+    "print(cleaned_data)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5d7f3d43",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "      Name   Age\n",
+    "0    Alice  25.0\n",
+    "2  Charlie  30.0\n",
+    "4      Eva  22.0\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7966da66",
+   "metadata": {},
+   "source": [
+    "Summary of Actions and Results\n",
+    "We discussed the differences between attributes and methods, and how they are used in pandas.\n",
+    "We examined the functionalities of df.shape and df.describe().\n",
+    "We explored the use cases for df.dropna() and del df['col'].\n",
+    "We applied these methods in examples involving a DataFrame with names, ages, and favorite hobbies, showing how to clean the DataFrame by either removing rows with missing values or deleting irrelevant columns."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8ce11ef1",
+   "metadata": {},
+   "source": [
+    "# Recommended Additional Useful Activities [Optional]\n",
+    "\n",
+    "The \"Ethical Profesionalism Considerations\" and \"Current Course Project Capability Level\" sections below **are not a part of the required homework assignment**; rather, they are regular weekly guides covering (a) relevant considerations regarding professional and ethical conduct, and (b) the analysis steps for the STA130 course project that are feasible at the current stage of the course<br><br>\n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Ethical Professionalism Considerations</u></summary>\n",
+    "\n",
+    "## Ethical Professionalism Considerations\n",
+    "\n",
+    "> If the observed data is \"no events occured\" does this mean the data is \"missing\" and [should be ignored](https://priceonomics.com/the-space-shuttle-challenger-explosion-and-the-o)?\n",
+    "> \n",
+    "> - NASA: \\<determines temperature doesn't affects \"o-ring\" by subseting data to just \"o-ring\" incidents\\>\n",
+    "> - Also NASA: \\<launches the shuttle on a cold day\\>\n",
+    "\n",
+    "|No apparent \"o-ring\" failure and temperature relationship|Apparent between \"o-ring\" failure and temperature relationship|\n",
+    "|:-|:-|\n",
+    "if you just look at \"o-ring\" failure event data|if you instead look at ALL the data as you should|\n",
+    "|![](https://etzq49yfnmd.exactdn.com/wp-content/uploads/2022/03/image06-14.png)|![](https://etzq49yfnmd.exactdn.com/wp-content/uploads/2022/03/image02-33.png)|\n",
+    "|![](https://upload.wikimedia.org/wikipedia/commons/8/8b/Shuttle_Challenger_explosion.gif?20190203170223)|![](https://i.makeagif.com/media/10-04-2014/nT57xW.gif)|\n",
+    "\n",
+    "<br>\n",
+    "    \n",
+    "</details>    \n",
+    "\n",
+    "<details class=\"details-example\"><summary style=\"color:blue\"><u>Current Course Project Capability Level</u></summary>\n",
+    "\n",
+    "## Current Course Project Capability Level\n",
+    "\n",
+    "> The data we'll use for the STA130 course project is based on the [Canadian Social Connection Survey](https://casch.org/cscs). Please see the [data use agreement](https://static1.squarespace.com/static/60283c2e174c122f8ebe0f39/t/6239c284d610f76fed5a2e69/1647952517436/Data+Use+Agreement+for+the+Canadian+Social+Connection+Survey.pdf) regarding the appropriate and ethical professional use of this data (available at the bottom of the [CSCS](https://casch.org/cscs) webpage).\n",
+    "> \n",
+    "> 1. Have a very quick look at the list of available variables available using the [link](https://drive.google.com/file/d/1ISVymGn-WR1lcRs4psIym2N3or5onNBi/view) (again at the bottom of the [CSCS](https://casch.org/cscs) webpage); then, \n",
+    "> 2. examine the code in the first thirteen code cells of [STA130F24_CourseProject.ipynb](https://github.com/pointOfive/stat130chat130/blob/main/CP/STA130F24_CourseProject.ipynb) to get an initital understanding of how we might subset to different studies included in the [data](https://drive.google.com/file/d/1mbUQlMTrNYA7Ly5eImVRBn16Ehy9Lggo/view) (again accessible at the bottom of the [CSCS](https://casch.org/cscs) webpage); then,     \n",
+    "> 3. review the fourteenth and fifteenth cells (with the comments \"Here's a high level summary of the data\" and \"And here are some explanations about the columns in the data\") a little more closely to get a better sense of which columns seem to be the most interesting and whether or not they seem to have a lot of missing data\n",
+    "    \n",
+    "</details>        "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "98ca7d22",
+   "metadata": {},
+   "source": [
+    "### Afterward\n",
+    "\n",
+    "Here are few ideas of some other kinds of interactions you might consider exploring with a ChatBot...\n",
+    "\n",
+    "> While these are likely to be extremely practically valuable, they are not a part of the homework assignment, so do not include anything related to these in your homework submission\n",
+    "\n",
+    "- With respect to improving ones ability in statistics, coding, communication, and other key data science skills\n",
+    "    - what is the ChatBots perception its own capabilities and uses as an AI-driven assistance tool \n",
+    "    - and does ChatBots assessment of itself influence or agree with your own evalution of the ChatBot? \n",
+    "\n",
+    "- ChatBots can introduce and explain the \"World War 2 planes\" problem and the \"Monte Hall\" problem... \n",
+    "    - how well does do they seem to do and introducing and explaining other \"unintuitive surprising statistics paradoxes\"?\n",
+    "\n",
+    "- If you consider the process of writing about why you chose to take this course, and the skills you were hoping to build through this course with respect to your current ideas about what possible careers \n",
+    "    - and how do you think the exercise would be different if you framed it as a dialogue with a ChatBot\n",
+    "    - and do you think the difference could be positive and productive, or potentially biasing and distracting?\n",
+    "    \n",
+    "- ChatBots sometimes immediately responds in simple helpful ways, but other times it gives a lot of extraneous information that can be overwheling... are you able to prompt and interact with ChatBots in manner that keeps its reponses helpful and focused on what you're interested in? \n",
+    "\n",
+    "- ChatBots tends to respond in a fairly empathetic and supportive tone...\n",
+    "    - do you find it helpful to discuss concerns you might have about succeeding in the course (or entering university more generally) with a ChatBot?\n",
+    "    \n",
+    "- For what purposes and in what contexts do you think a ChatBot could provide suggestions or feedback about your experiences that might be useful? \n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
